@@ -85,7 +85,7 @@ object Sonatype extends AutoPlugin {
     },
     sonatypePublishTo := Some(sonatypeDefaultResolver.value),
     sonatypeBundleDirectory := {
-      (ThisBuild / baseDirectory).value / "target" / "sonatype-staging" / s"${version.value}"
+      (ThisBuild / baseDirectory).value / "target" / "sonatype-staging" / (ThisBuild / version).value
     },
     sonatypeBundleClean := {
       IO.delete(sonatypeBundleDirectory.value)
@@ -109,7 +109,7 @@ object Sonatype extends AutoPlugin {
         Opts.resolver.sonatypeStaging
       })
     },
-    sonatypeSessionName := s"[sbt-sonatype] ${name.value} ${version.value}",
+    sonatypeSessionName := s"[sbt-sonatype] ${name.value} ${(ThisBuild / version).value}",
     commands ++= Seq(
       sonatypeBundleRelease,
       sonatypeBundleUpload,
